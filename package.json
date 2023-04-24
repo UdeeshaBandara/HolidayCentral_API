@@ -1,0 +1,23 @@
+{
+  "name": "holiday_central_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/UdeeshaBandara/HolidayCentral_API.git"
+  },
+  "author": "Udeesha Induras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UdeeshaBandara/HolidayCentral_API/issues"
+  },
+  "homepage": "https://github.com/UdeeshaBandara/HolidayCentral_API#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
