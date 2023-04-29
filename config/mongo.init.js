@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const flightModel = require('../model/flight.model');
 const dotenv = require('dotenv')
 const userModel = require('../models/user.model');
 dotenv.config()
@@ -9,7 +10,9 @@ const connectDatabase = async() => {
 }
 
 connectDatabase().then(connection => {
+    db.flight = flightModel.FlightSchema(connection)
     db.user = userModel.UserSchema(connection)
 })
+
 
 module.exports = db;
