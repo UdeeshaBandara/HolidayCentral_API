@@ -1,9 +1,10 @@
 const express = require('express')
 const app = express()
 const dotenv = require('dotenv')
+const FlightRouter = require("./routes/flight.routes");
 dotenv.config()
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -19,4 +20,10 @@ app.use((req, res, next) => {
     }
 });
 
-app.listen(process.env.PORT, () => console.log(`App is listening port ${process.env.PORT}`))
+app.get('/', function (req, res) {
+    res.send(JSON.stringify({status: true, message: "Holiday Central Backend - Up and running!!!"}));
+})
+
+FlightRouter.routesConfig(app);
+
+app.listen(3001, () => console.log(`App is listening port ${process.env.PORT || 3001}`))
