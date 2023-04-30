@@ -1,4 +1,5 @@
 const db = require("../config/mongo.init");
+const moment = require("moment");
 
 
 exports.getAllFlights = (req, res) => {
@@ -32,4 +33,25 @@ exports.getSearchParams = async (req, res) => {
         airlines: distinctAirline,
         cabins: cabins
     }))
+}
+exports.searchFlights = async (req, res) => {
+
+    req.body.departure_time = moment(req.body.departure_time).utc().startOf("day").format("X");
+    req.body.arrival_time = moment(req.body.arrival_time).utc().startOf("day").format("X");
+
+    let flights = await db.flight.find({
+        'departure': req.body.departure,
+        'arrival': req.body.arrival,
+        $or: [{"departure_time": {$gt: req.body.departure_time}}, {"arrival_time": {$lt: req.body.arrival_time}}, {"airline": req.body.airline}, {"cabins.name": req.body.cabin}]
+    }).exec();
+    if (flights.length !== 0) {
+
+        res.status(200).send(JSON.stringify(flights))
+    } else {
+        res.status(200).send({status: false, message: 'No flight records are available'})
+    }
+}
+exports.saveFlightReservation = async (req, res) => {
+
+
 }
