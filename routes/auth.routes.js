@@ -9,7 +9,6 @@ exports.routesConfig = function(app) {
 
     app.get('/user', [
         AuthMiddleware.checkValidJWT,
-        AuthMiddleware.checkUser,
         AuthController.getUser
     ])
 

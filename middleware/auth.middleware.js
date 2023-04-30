@@ -41,11 +41,3 @@ exports.checkValidJWT = (req, res, next) => {
         return res.status(401).send({status : false, data: "Unauthorized"});
     }
 };
-
-exports.checkUser = (req, res, next) => {
-    const { error } = userModel.joiUser.fork(['username'], makeRequired).validate({
-        username: req.body.username
-    });
-    if (error) return res.status(400).json({error: error.details[0].message});
-    return next();
-}

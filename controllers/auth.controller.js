@@ -47,7 +47,7 @@ exports.saveNewUser = (req, res) => {
 }
 
 exports.getUser = (req, res) => {
-    db.user.find({username: req.body.username}).exec().then(r => {
+    db.user.find({username: req.jwt.username}).exec().then(r => {
         const result = r[0];
         if (r != null) {
             console.log(`users found ${r[0]}`);
