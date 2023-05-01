@@ -56,6 +56,7 @@ exports.saveFlightReservation = async (req, res) => {
     const reservation = db.flightReservation({
         flight_id: req.body.flight_id,
         meal_type: req.body.meal_type,
+        seat_type: req.body.seat_type,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,

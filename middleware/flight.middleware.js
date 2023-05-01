@@ -21,6 +21,8 @@ exports.validateFlightSave = (req, res, next) => {
         last_name: req.body.last_name,
         email: req.body.email,
         cabin_type: req.body.cabin_type,
+        seat_type: req.body.seat_type,
+        price: req.body.price,
         phone: req.body.phone,
         pax: req.body.pax,
     });

@@ -9,6 +9,7 @@ exports.FlightReservationSchema = function (mongoose) {
         last_name: String,
         email: String,
         cabin_type: String,
+        seat_type: String,
         phone: Number,
         price: Number,
         pax: Number,
@@ -24,6 +25,7 @@ exports.joiFlightReservationSave = Joi.object({
     last_name: Joi.string().required(),
     email: Joi.string().required(),
     cabin_type: Joi.string().required(),
+    seat_type: Joi.string().required(),
     phone: Joi.number()
         .integer().required(),
     price: Joi.number()
