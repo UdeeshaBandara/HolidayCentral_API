@@ -53,5 +53,23 @@ exports.searchFlights = async (req, res) => {
 }
 exports.saveFlightReservation = async (req, res) => {
 
+    const reservation = db.flightReservation({
+        flight_id: req.body.flight_id,
+        meal_type: req.body.meal_type,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        cabin_type: req.body.cabin_type,
+        phone: req.body.phone,
+        price: req.body.price,
+        pax: req.body.pax
+    });
+    const result = await reservation.save();
+
+    if (result) {
+        res.status(201).send({status: true, data: result})
+    } else {
+        res.status(200).send({status: false, message: 'Failed to save reservation'})
+    }
 
 }
