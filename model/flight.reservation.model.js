@@ -26,6 +26,8 @@ exports.joiFlightReservationSave = Joi.object({
     cabin_type: Joi.string().required(),
     phone: Joi.number()
         .integer().required(),
+    price: Joi.number()
+        .integer().required(),
     pax: Joi.number()
         .integer().required(),
 })
