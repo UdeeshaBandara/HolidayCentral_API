@@ -10,10 +10,11 @@ exports.routesConfig = function(app) {
     ]);
 
     app.post('/flight/query', [
-        FlightMiddleware.validateFlightParams,
+        FlightMiddleware.validateFlightSearchParams,
         FlightController.searchFlights
     ]);
     app.post('/flight/book', [
+        FlightMiddleware.validateFlightSave,
         FlightController.saveFlightReservation
     ]);
 

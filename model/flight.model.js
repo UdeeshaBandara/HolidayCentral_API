@@ -21,7 +21,7 @@ exports.FlightSchema = function (mongoose) {
         seats: String
     });
 
-    return mongoose.model("Model", flightSchema, "flight");
+    return mongoose.model("flight", flightSchema, "flight");
 }
 exports.joiFlightSearch = Joi.object({
     departure: Joi.string().required(),
@@ -30,9 +30,4 @@ exports.joiFlightSearch = Joi.object({
     arrival_time: Joi.string().required(),
     cabin: Joi.string().required(),
 })
-exports.joiFlightSave = Joi.object({
-    flight_id: Joi.string().required(),
-    meal_type: Joi.string().required(),
-    cabin_type: Joi.number()
-        .integer().required(),
-})
+
