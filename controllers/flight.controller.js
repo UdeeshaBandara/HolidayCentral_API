@@ -46,7 +46,7 @@ exports.searchFlights = async (req, res) => {
     }).exec();
     if (flights.length !== 0) {
 
-        res.status(200).send(JSON.stringify(flights))
+        res.status(200).send({status: true,data:flights})
     } else {
         res.status(200).send({status: false, message: 'No flight records are available'})
     }
