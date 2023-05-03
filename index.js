@@ -3,6 +3,7 @@ const app = express()
 const dotenv = require('dotenv')
 const FlightRouter = require("./routes/flight.routes");
 const AuthRouter = require("./routes/auth.routes");
+const FlightRouter = require("./routes/flight.routes");
 dotenv.config()
 
 app.use(express.urlencoded({extended: false}));
