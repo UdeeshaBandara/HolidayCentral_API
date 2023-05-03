@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const flightModel = require('../model/flight.model');
 const flightReservationModel = require('../model/flight.reservation.model');
 const dotenv = require('dotenv')
-const userModel = require('../models/user.model');
+const userModel = require('../model/user.model');
 dotenv.config()
 const db = {};
 
