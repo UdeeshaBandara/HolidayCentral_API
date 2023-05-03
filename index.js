@@ -2,9 +2,11 @@ const express = require('express')
 const app = express()
 const dotenv = require('dotenv')
 const AuthRouter = require("./routes/auth.routes");
+const FlightRouter = require("./routes/flight.routes");
 dotenv.config()
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -20,10 +22,11 @@ app.use((req, res, next) => {
     }
 });
 
-app.get('/', function(req, res) {
-    res.send('All Good');
+app.get('/', function (req, res) {
+    res.send(JSON.stringify({status: true, message: "Holiday Central Backend - Up and running!!!"}));
 })
 
 AuthRouter.routesConfig(app);
+FlightRouter.routesConfig(app);
 
-app.listen(process.env.PORT, () => console.log(`App is listening port ${process.env.PORT} and connected to ${process.env.MONGOOSE_CONNECTION}`))
+app.listen(3001, () => console.log(`App is listening port ${process.env.PORT || 3001}`))
