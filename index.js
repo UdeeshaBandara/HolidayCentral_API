@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const dotenv = require('dotenv')
+const AuthRouter = require("./routes/auth.routes");
 dotenv.config()
 
 app.use(express.urlencoded({ extended: false }));
@@ -19,4 +20,10 @@ app.use((req, res, next) => {
     }
 });
 
-app.listen(process.env.PORT, () => console.log(`App is listening port ${process.env.PORT}`))
+app.get('/', function(req, res) {
+    res.send('All Good');
+})
+
+AuthRouter.routesConfig(app);
+
+app.listen(process.env.PORT, () => console.log(`App is listening port ${process.env.PORT} and connected to ${process.env.MONGOOSE_CONNECTION}`))
