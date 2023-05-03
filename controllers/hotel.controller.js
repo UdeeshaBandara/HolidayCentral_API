@@ -17,7 +17,8 @@ exports.getAllHotels = (req, res) => {
 }
 exports.getSearchParams = async (req, res) => {
 
-    let filters = await db.hotel.find().select(['hotel', 'room', 'price']).exec();
+    let filters = await db.hotel.find().select(['location','hotel', 'room', 'price']).exec();
+    let distinctlocation = [...new Set(filters.map(item => item.hotel))];
     let distincthotels = [...new Set(filters.map(item => item.hotel))];
     let distinctroom = [...new Set(filters.map(item => item.room))];
     let distinctprice = [...new Set(filters.map(item => item.price))];
@@ -28,6 +29,7 @@ exports.getSearchParams = async (req, res) => {
     });
 
     res.status(200).send(JSON.stringify({
+        location: location,
         hotel: distincthotels,
         arrivals: distinctroom,
         airlines: distinctprice,
@@ -61,7 +63,9 @@ exports.saveHotelReservation = async (req, res) => {
         room_type: req.body.room_type,
         phone: req.body.phone,
         price: req.body.price,
-        heads: req.body.heads
+        heads: req.body.heads,
+        board_basis : req.body.board_basis,
+        room_selection : req.body.room_selection,
     });
     const result = await reservation.save();
 
