@@ -2,7 +2,7 @@ const Joi = require('joi');
 const {Schema} = require("mongoose");
 const mongoose = require("mongoose");
 
-const hotelSchema = new Schema({id: 'string', HotelName: 'string', Roomtype: 'string'});
+const hotelRoomSchema = new Schema({id: 'string', HotelName: 'string'});
 
 exports.HotelSchema = function (mongoose) {
     const hotelSchema = new Schema({
@@ -10,7 +10,7 @@ exports.HotelSchema = function (mongoose) {
         checkIn: Date,
         checkOut: Date,
         room: String,
-        Hotels: [hotelSchema],
+        Hotels: [hotelRoomSchema],
         price: Number,
         heads: Number
 
