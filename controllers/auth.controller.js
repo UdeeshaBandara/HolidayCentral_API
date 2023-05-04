@@ -13,7 +13,7 @@ exports.checkLogin = async (req, res) => {
             ));
         } else {
             console.log(`no user found`);
-            res.status(500).send({status: false, message: 'Please Check Your Credentials'})
+            res.status(401).send({status: false, message: 'Please Check Your Credentials'})
         }
     })
 }
@@ -31,8 +31,7 @@ exports.saveNewUser = async (req, res) => {
         if (r.length !== 0) {
             res.status(201).send(JSON.stringify(r));
         } else {
-
-            res.status(500).send({status: false, message: 'Registration Failed'});
+            res.status(400).send({status: false, message: 'Registration Failed'});
         }
     });
 }
@@ -41,11 +40,9 @@ exports.getUser = async (req, res) => {
     db.user.find({username: req.jwt.username}).exec().then(r => {
         const result = r[0];
         if (r != null) {
-
             res.status(200).send(JSON.stringify(result));
         } else {
-
-            res.status(500).send({status: false, message: 'User Not Found'})
+            res.status(400).send({status: false, message: 'User Not Found'})
         }
     })
 }

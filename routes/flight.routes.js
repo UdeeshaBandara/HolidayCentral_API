@@ -17,6 +17,7 @@ exports.routesConfig = function(app) {
         FlightMiddleware.validateFlightSearchParams,
         FlightController.searchFlights
     ]);
+
     app.post('/flight/book', [
         AuthMiddleware.checkValidJWT,
         FlightMiddleware.validateFlightSave,
