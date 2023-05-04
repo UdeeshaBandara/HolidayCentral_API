@@ -3,6 +3,7 @@ const app = express()
 const dotenv = require('dotenv')
 const AuthRouter = require("./routes/auth.routes");
 const FlightRouter = require("./routes/flight.routes");
+const PackageRouter = require("./routes/package.routes");
 dotenv.config()
 
 app.use(express.urlencoded({extended: false}));
@@ -28,5 +29,6 @@ app.get('/', function (req, res) {
 
 AuthRouter.routesConfig(app);
 FlightRouter.routesConfig(app);
+PackageRouter.routesConfig(app);
 
-app.listen(3001, () => console.log(`App is listening port ${process.env.PORT || 3001}`))
+app.listen(process.env.PORT, () => console.log(`App is listening port ${process.env.PORT}`))
