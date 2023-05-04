@@ -45,11 +45,11 @@ exports.getAllPackages = (req, res) => {
 exports.getSearchParams = async (req, res) => {
     try {
         let filters = await db.package.find().select(['package_destination', 'package_duration', 'package_travelers_count', 'package_speciality', 'package_price', 'package_rating']).exec();
-        let package_destination = [...new Set(filters.map(item => item.package_destination))];
-        let package_duration = [...new Set(filters.map(item => item.package_duration))];
-        let package_travelers_count = [...new Set(filters.map(item => item.package_travelers_count))];
-        let package_price = [...new Set(filters.map(item => item.package_price))];
-        let package_rating = [...new Set(filters.map(item => item.package_rating))];
+        let package_destination = [...new Set(filters.map(item => item.package_destination))].slice().sort((a, b) => a - b);
+        let package_duration = [...new Set(filters.map(item => item.package_duration))].slice().sort((a, b) => a - b);
+        let package_travelers_count = [...new Set(filters.map(item => item.package_travelers_count))].slice().sort((a, b) => a - b);
+        let package_price = [...new Set(filters.map(item => item.package_price))].slice().sort((a, b) => a - b);
+        let package_rating = [...new Set(filters.map(item => item.package_rating))].slice().sort((a, b) => a - b);
 
         let package_speciality = [...new Set(filters.flatMap(item => item.package_speciality))];
 
