@@ -19,10 +19,15 @@ exports.joiPackageSave = Joi.object({
     package_id: Joi.string(),
     package_destination: Joi.string(),
     package_duration: Joi.number().integer(),
+    package_duration_min: Joi.number().integer(),
+    package_duration_max: Joi.number().integer(),
     package_travelers_count: Joi.number().integer(),
     package_speciality: Joi.array(),
-    package_filter_option: Joi.string(),
     package_price: Joi.number(),
-    package_rating: Joi.number().min(1).max(5)
+    package_price_min: Joi.number(),
+    package_price_max: Joi.number(),
+    package_rating: Joi.number().min(0).max(5),
+    package_rating_min: Joi.number().min(0).max(5),
+    package_rating_max: Joi.number().min(0).max(5)
 })
 

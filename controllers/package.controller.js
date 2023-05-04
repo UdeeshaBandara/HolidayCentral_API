@@ -9,7 +9,6 @@ exports.saveHolidayPackage = async (req, res) => {
             package_duration: req.body.package_duration,
             package_travelers_count: req.body.package_travelers_count,
             package_speciality: req.body.package_speciality,
-            package_filter_option: req.body.package_filter_option,
             package_price: req.body.package_price,
             package_rating: req.body.package_rating
         });
@@ -68,6 +67,24 @@ exports.getSearchParams = async (req, res) => {
     }
 }
 
+exports.getSearchFilters = async (req, res) => {
+    try {
+        let filters = ["Price: lowest first", "Price: highest first", ]
+
+        res.status(200).send(JSON.stringify({
+            package_destination: package_destination,
+            package_duration: package_duration,
+            package_travelers_count: package_travelers_count,
+            package_speciality: package_speciality,
+            package_price: package_price,
+            package_rating: package_rating
+        }))
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({status: false, message: 'Internal Server Error'})
+    }
+}
+
 exports.searchPackages = async (req, res) => {
     try {
         const searchQuery = {};
@@ -76,8 +93,14 @@ exports.searchPackages = async (req, res) => {
             searchQuery.package_destination = req.body.package_destination;
         }
 
-        if (req.body.package_duration) {
-            searchQuery.package_duration = req.body.package_duration;
+        if (req.body.package_duration_min || req.body.package_duration_max) {
+            searchQuery.package_duration = {};
+            if (req.body.package_duration_min) {
+                searchQuery.package_duration.$gte = req.body.package_duration_min;
+            }
+            if (req.body.package_duration_max) {
+                searchQuery.package_duration.$lte = req.body.package_duration_max;
+            }
         }
 
         if (req.body.package_travelers_count) {
@@ -98,8 +121,14 @@ exports.searchPackages = async (req, res) => {
             }
         }
 
-        if (req.body.package_rating) {
-            searchQuery.package_rating = req.body.package_rating;
+        if (req.body.package_rating_min || req.body.package_rating_max) {
+            searchQuery.package_rating = {};
+            if (req.body.package_rating_min) {
+                searchQuery.package_rating.$gte = req.body.package_rating_min;
+            }
+            if (req.body.package_rating_max) {
+                searchQuery.package_rating.$lte = req.body.package_rating_max;
+            }
         }
 
         const packages = await db.package.find(searchQuery).exec();

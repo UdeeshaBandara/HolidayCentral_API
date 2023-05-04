@@ -9,7 +9,6 @@ exports.validatePackageSave = (req, res, next) => {
         package_duration: req.body.package_duration,
         package_travelers_count: req.body.package_travelers_count,
         package_speciality: req.body.package_speciality,
-        package_filter_option: req.body.package_filter_option,
         package_price: req.body.package_price,
         package_rating: req.body.package_rating
     });
@@ -21,12 +20,14 @@ exports.validatePackageSearch = (req, res, next) => {
     const {error} = packageModel.joiPackageSave.validate({
         package_id: req.body.package_id,
         package_destination: req.body.package_destination,
-        package_duration: req.body.package_duration,
+        package_duration_min: req.body.package_duration_min,
+        package_duration_max: req.body.package_duration_max,
         package_travelers_count: req.body.package_travelers_count,
         package_speciality: req.body.package_speciality,
-        package_filter_option: req.body.package_filter_option,
-        package_price: req.body.package_price,
-        package_rating: req.body.package_rating
+        package_price_min: req.body.package_price_min,
+        package_price_max: req.body.package_price_max,
+        package_rating_min: req.body.package_rating_min,
+        package_rating_max: req.body.package_rating_max
     });
     if (error) return res.status(400).json({error: error.details[0].message});
     return next();

@@ -22,7 +22,7 @@ exports.joiPackageReservationSave = Joi.object({
     package_travelers_count: Joi.number().integer().required(),
     package_speciality: Joi.array().required(),
     package_price: Joi.number().required(),
-    package_rating: Joi.number().min(1).max(5)
+    package_rating: Joi.number().min(0).max(5)
         .required()
 })
 
