@@ -38,11 +38,16 @@ exports.saveNewUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     db.user.find({username: req.jwt.username}).exec().then(r => {
-        const result = r[0];
-        if (r != null) {
-            res.status(200).send(JSON.stringify(result));
+        if (r[0]) {
+            res.status(200).send(JSON.stringify(
+                {
+                    "status": true,
+                    data: r[0]
+                }
+            ));
         } else {
-            res.status(400).send({status: false, message: 'User Not Found'})
+            console.log(`no user found`);
+            res.status(401).send({status: false, message: 'Please Check Your Credentials'})
         }
     })
 }

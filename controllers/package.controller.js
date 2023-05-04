@@ -67,24 +67,6 @@ exports.getSearchParams = async (req, res) => {
     }
 }
 
-exports.getSearchFilters = async (req, res) => {
-    try {
-        let filters = ["Price: lowest first", "Price: highest first", ]
-
-        res.status(200).send(JSON.stringify({
-            package_destination: package_destination,
-            package_duration: package_duration,
-            package_travelers_count: package_travelers_count,
-            package_speciality: package_speciality,
-            package_price: package_price,
-            package_rating: package_rating
-        }))
-    } catch (err) {
-        console.log(err);
-        res.status(500).send({status: false, message: 'Internal Server Error'})
-    }
-}
-
 exports.searchPackages = async (req, res) => {
     try {
         const searchQuery = {};
