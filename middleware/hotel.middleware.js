@@ -9,6 +9,9 @@ exports.validateHotelSearchParams = (req, res, next) => {
         checkOut: req.body.checkOut,
         room: req.body.room,
         heads: req.body.heads,
+        option1: req.body.opton1,
+        option2: req.body.opton2,
+        option3: req.body.opton3,
     
     });
     if (error) return res.status(400).json({error: error.details[0].message});

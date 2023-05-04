@@ -12,7 +12,11 @@ exports.HotelSchema = function (mongoose) {
         room: String,
         Hotels: [hotelRoomSchema],
         price: Number,
-        heads: Number
+        heads: Number,
+        option1 : String,
+        option2 : String,
+        option3 : String,
+
 
         
     });
@@ -26,5 +30,8 @@ exports.joiHotelSearch = Joi.object({
     checkOut: Joi.string().required(),
     room: Joi.string().required(),
     heads: Joi.string().required(),
+    option1: Joi.string().required(),
+    option2: Joi.string().required(),
+    option3: Joi.string().required(),
 })
 

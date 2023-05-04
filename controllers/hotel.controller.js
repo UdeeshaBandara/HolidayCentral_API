@@ -17,11 +17,15 @@ exports.getAllHotels = (req, res) => {
 }
 exports.getSearchParams = async (req, res) => {
 
-    let filters = await db.hotel.find().select(['location','hotel', 'room', 'price']).exec();
+    let filters = await db.hotel.find().select(['location','hotel', 'room', 'price', 'option_category1', 'option_category2', 'option_category3' ]).exec();
     let distinctlocation = [...new Set(filters.map(item => item.hotel))];
     let distincthotels = [...new Set(filters.map(item => item.hotel))];
     let distinctroom = [...new Set(filters.map(item => item.room))];
     let distinctprice = [...new Set(filters.map(item => item.price))];
+    let option_category1 = [...new Set(filters.map(item => item.option_category1))];
+    let option_category2 = [...new Set(filters.map(item => item.option_category2))];
+    let option_category3 = [...new Set(filters.map(item => item.option_category3))];
+
 
     let hotels = []
     filters.forEach(item => {
@@ -33,7 +37,10 @@ exports.getSearchParams = async (req, res) => {
         hotel: distincthotels,
         arrivals: distinctroom,
         airlines: distinctprice,
-        hotels: hotels
+        hotels: hotels,
+        option1 : option_category1,
+        option2 : option_category2,
+        option3 : option_category3, 
     }))
 }
 exports.searchhotels = async (req, res) => {
