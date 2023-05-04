@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const {Schema} = require("mongoose");
-const mongoose = require("mongoose");
 
 const cabinSchema = new Schema({id: 'string', cabinName: 'string'});
 

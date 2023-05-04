@@ -42,7 +42,8 @@ exports.searchFlights = async (req, res) => {
     let flights = await db.flight.find({
         'departure': req.body.departure,
         'arrival': req.body.arrival,
-        $or: [{"departure_time": {$gt: req.body.departure_time}}, {"arrival_time": {$lt: req.body.arrival_time}}, {"airline": req.body.airline}, {"cabins.name": req.body.cabin}]
+        $or: [{"departure_time": {$gt: req.body.departure_time}}, {"arrival_time": {$gt: req.body.arrival_time}},
+            {"airline": req.body.airline}, {"cabins.name": req.body.cabin}]
     }).exec();
     if (flights.length !== 0) {
 
