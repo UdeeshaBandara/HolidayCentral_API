@@ -25,7 +25,7 @@ exports.routesConfig = function(app) {
         PackageController.searchPackages
     ])
 
-    app.get('/packages/reserve', [
+    app.post('/packages/reserve', [
         AuthMiddleware.checkValidJWT,
         PackageMiddleware.validatePackageReservations,
         PackageController.savePackageReservations

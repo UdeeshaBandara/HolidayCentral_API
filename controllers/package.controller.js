@@ -1,5 +1,6 @@
 const db = require("../config/mongo.init");
 const {v4: uuidv4} = require("uuid");
+const PackageController = require("./package.controller");
 
 exports.saveHolidayPackage = async (req, res) => {
     try {
@@ -87,56 +88,60 @@ exports.getSearchFilters = async (req, res) => {
 
 exports.searchPackages = async (req, res) => {
     try {
-        const searchQuery = {};
-
-        if (req.body.package_destination) {
-            searchQuery.package_destination = req.body.package_destination;
-        }
-
-        if (req.body.package_duration_min || req.body.package_duration_max) {
-            searchQuery.package_duration = {};
-            if (req.body.package_duration_min) {
-                searchQuery.package_duration.$gte = req.body.package_duration_min;
-            }
-            if (req.body.package_duration_max) {
-                searchQuery.package_duration.$lte = req.body.package_duration_max;
-            }
-        }
-
-        if (req.body.package_travelers_count) {
-            searchQuery.package_travelers_count = req.body.package_travelers_count;
-        }
-
-        if (req.body.package_speciality) {
-            searchQuery.package_speciality = {$all: req.body.package_speciality};
-        }
-
-        if (req.body.package_price_min || req.body.package_price_max) {
-            searchQuery.package_price = {};
-            if (req.body.package_price_min) {
-                searchQuery.package_price.$gte = req.body.package_price_min;
-            }
-            if (req.body.package_price_max) {
-                searchQuery.package_price.$lte = req.body.package_price_max;
-            }
-        }
-
-        if (req.body.package_rating_min || req.body.package_rating_max) {
-            searchQuery.package_rating = {};
-            if (req.body.package_rating_min) {
-                searchQuery.package_rating.$gte = req.body.package_rating_min;
-            }
-            if (req.body.package_rating_max) {
-                searchQuery.package_rating.$lte = req.body.package_rating_max;
-            }
-        }
-
-        const packages = await db.package.find(searchQuery).exec();
-
-        if (packages.length !== 0) {
-            res.status(200).send({status: true, data: packages})
+        if (Object.keys(req.body).length === 0) {
+            PackageController.getAllPackages(req, res)
         } else {
-            res.status(200).send({status: false, message: 'No package records are available'})
+            const searchQuery = {};
+
+            if (req.body.package_destination) {
+                searchQuery.package_destination = req.body.package_destination;
+            }
+
+            if (req.body.package_duration_min || req.body.package_duration_max) {
+                searchQuery.package_duration = {};
+                if (req.body.package_duration_min) {
+                    searchQuery.package_duration.$gte = req.body.package_duration_min;
+                }
+                if (req.body.package_duration_max) {
+                    searchQuery.package_duration.$lte = req.body.package_duration_max;
+                }
+            }
+
+            if (req.body.package_travelers_count) {
+                searchQuery.package_travelers_count = req.body.package_travelers_count;
+            }
+
+            if (!Array.isArray(req.body.package_speciality) && req.body.package_speciality.length !== 0 && req.body.package_speciality) {
+                searchQuery.package_speciality = {$all: req.body.package_speciality};
+            }
+
+            if (req.body.package_price_min || req.body.package_price_max) {
+                searchQuery.package_price = {};
+                if (req.body.package_price_min) {
+                    searchQuery.package_price.$gte = req.body.package_price_min;
+                }
+                if (req.body.package_price_max) {
+                    searchQuery.package_price.$lte = req.body.package_price_max;
+                }
+            }
+
+            if (req.body.package_rating_min || req.body.package_rating_max) {
+                searchQuery.package_rating = {};
+                if (req.body.package_rating_min) {
+                    searchQuery.package_rating.$gte = req.body.package_rating_min;
+                }
+                if (req.body.package_rating_max) {
+                    searchQuery.package_rating.$lte = req.body.package_rating_max;
+                }
+            }
+
+            const packages = await db.package.find(searchQuery).exec();
+
+            if (packages.length !== 0) {
+                res.status(200).send({status: true, data: packages})
+            } else {
+                res.status(200).send({status: false, message: 'No package records are available'})
+            }
         }
     } catch (err) {
         console.log(err);
